@@ -1,0 +1,339 @@
+{% extends "base.html" %}
+{% load static %}
+{% load Save_Money %}
+{% block title %}Products | Billing{% endblock title %}
+{% block body %}
+
+    <!-- mobile fix menu start -->
+    <div class="mobile-menu d-md-none d-block mobile-cart">
+        <ul>
+            <li class="active">
+                <a href="index.html">
+                    <i class="iconly-Home icli"></i>
+                    <span>Home</span>
+                </a>
+            </li>
+
+            <li class="mobile-category">
+                <a href="javascript:void(0)">
+                    <i class="iconly-Category icli js-link"></i>
+                    <span>Category</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="search.html" class="search-box">
+                    <i class="iconly-Search icli"></i>
+                    <span>Search</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="wishlist.html" class="notifi-wishlist">
+                    <i class="iconly-Heart icli"></i>
+                    <span>My Wish</span>
+                </a>
+            </li>
+
+            <li>
+                <a href="cart.html">
+                    <i class="iconly-Bag-2 icli fly-cate"></i>
+                    <span>Cart</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <!-- mobile fix menu end -->
+
+    <!-- Breadcrumb Section Start -->
+    <section class="breadscrumb-section pt-0">
+        <div class="container-fluid-lg">
+            <div class="row">
+                <div class="col-12">
+                    <div class="breadscrumb-contain">
+                        <h2>Checkout</h2>
+                        <nav>
+                            <ol class="breadcrumb mb-0">
+                                <li class="breadcrumb-item">
+                                    <a href="index.html">
+                                        <i class="fa-solid fa-house"></i>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item active" aria-current="page">Checkout</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumb Section End -->
+
+    <!-- Checkout section Start -->
+    <section class="checkout-section-2 section-b-space">
+        <form action="{% url 'payment_done' %}" method="POST" >
+        {% csrf_token %}
+
+            <div class="container-fluid-lg">
+                <div class="row g-sm-4 g-3">
+
+    {% comment %} <!-----------------------------Address Show Start---------------------------------------> {% endcomment %}
+
+                    <div class="col-lg-8">
+                        <div class="left-sidebar-checkout">
+                            <div class="checkout-detail-box">
+                                <ul>
+                                    <li>
+                                        <div class="checkout-icon">
+                                            <lord-icon target=".nav-item" src="https://cdn.lordicon.com/ggihhudh.json"
+                                                trigger="loop-on-hover"
+                                                colors="primary:#121331,secondary:#646e78,tertiary:#0baf9a"
+                                                class="lord-icon">
+                                            </lord-icon>
+                                        </div>
+                                        <div class="checkout-box">
+                                            <div class="checkout-title">
+                                                <h4>Delivery Address</h4>
+                                            </div>
+
+                                                <div class="checkout-detail">
+                                                    <div class="row g-4">
+                                                        {% for add in addresses %}
+
+                                                        <div class="col-xxl-6 col-lg-12 col-md-6">
+                                                            <div class="delivery-address-box">
+                                                                <div>
+                                                                    <div class="form-check">
+                                                                        <input class="form-check-input" type="radio" name="address_id"
+                                                                            id="Address{{forloop.counter}}" value="{{add.id}}">
+                                                                    </div>
+
+                                                                    <div class="label">
+                                                                        <label for="Address{{forloop.counter}}">Address-{{forloop.counter}}</label>
+                                                                    </div>
+
+                                                                    <ul class="delivery-address-detail">
+                                                                        <li>
+                                                                            <h4 class="fw-500">{{add.user.get_full_name}}</h4>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <p class="text-content"><span
+                                                                                    class="text-title">Division
+                                                                                    : </span>{{add.Division}}</p>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <p class="text-content"><span
+                                                                                    class="text-title">Sub Division
+                                                                                    : </span>{{add.Sub_division}}</p>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <p class="text-content"><span
+                                                                                    class="text-title">Address
+                                                                                    : </span>{{add.Delivery_Address}}</p>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <h6 class="text-content"><span
+                                                                                    class="text-title">Pin Code
+                                                                                    :</span> +{{add.Zipcode}}</h6>
+                                                                        </li>
+
+                                                                        <li>
+                                                                            <h6 class="text-content mb-0"><span
+                                                                                    class="text-title">Phone
+                                                                                    :</span> +88{{add.Phone}}</h6>
+                                                                        </li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        {% endfor %}
+                                                    </div>
+                                                </div>
+
+
+                                        </div>
+                                    </li>
+
+
+
+                                    <li>
+                                        <div class="checkout-icon">
+                                            <lord-icon target=".nav-item" src="https://cdn.lordicon.com/qmcsqnle.json"
+                                                trigger="loop-on-hover" colors="primary:#0baf9a,secondary:#0baf9a"
+                                                class="lord-icon">
+                                            </lord-icon>
+                                        </div>
+                                        <div class="checkout-box">
+
+
+                                            <div class="checkout-title">
+                                                <h4>Payment Option</h4>
+                                            </div>
+
+                                            <div class="checkout-detail">
+                                                <div class="accordion accordion-flush custom-accordion"
+                                                    id="accordionFlushExample">
+                                    <!---------------------------Cash On Delivery Start--------------------------->
+                                                    <div class="accordion-item">
+                                                        <div class="accordion-header" id="flush-headingFour">
+                                                            <div class="accordion-button collapsed"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#flush-collapseFour">
+                                                                <div class="custom-form-check form-check mb-0">
+
+                                                                    <label class="form-check-label" for="cash">
+                                                                        <input
+                                                                            class="form-check-input mt-0" type="radio"
+                                                                            name="pay_method" id="cash" value="Cash On Delivery" checked> Cash
+                                                                        On Delivery
+
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="flush-collapseFour"
+                                                            class="accordion-collapse collapse show"
+                                                            data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">
+                                                                <p class="cod-review">Pay digitally with SMS Pay
+                                                                    Link. Cash may not be accepted in COVID restricted
+                                                                    areas. <a href="javascript:void(0)">Know more.</a>
+                                                                </p>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                    <!---------------------------Cash On Delivery End--------------------------->
+
+                                    <!---------------------------SSL Commerz Start------------------------------------->
+                                                    <div class="accordion-item">
+                                                        <div class="accordion-header" id="flush-headingOne">
+                                                            <div class="accordion-button collapsed"
+                                                                data-bs-toggle="collapse"
+                                                                data-bs-target="#flush-collapseOne">
+                                                                <div class="custom-form-check form-check mb-0">
+                                                                    <label class="form-check-label" for="credit">
+                                                                        <input
+                                                                            class="form-check-input mt-0" type="radio"
+                                                                            name="pay_method" id="credit" value = "SSL Commerz">
+                                                                        SSL Commerz
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div id="flush-collapseOne" class="accordion-collapse collapse"
+                                                            data-bs-parent="#accordionFlushExample">
+                                                            <div class="accordion-body">
+                                                                <div class="row g-2">
+                                                                    <div class="col-12">
+                                                                        <div class="payment-method">
+
+                                                                        </div>
+                                                                    </div>
+
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                    <!---------------------------SSL Commerz End--------------------------------------->
+
+                                                </div>
+                                            </div>
+
+
+
+                                        </div>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+    {% comment %} ------------=---------------Address Show End-------------------------------------{% endcomment %}
+    {% comment %} <!--------------------------Order Summery Show Start---------------------------> {% endcomment %}
+
+                    <div class="col-lg-4">
+                        <div class="right-side-summery-box">
+                            <div class="summery-box-2">
+                                <div class="summery-header">
+                                    <h3>Order Summery</h3>
+                                </div>
+
+                                <ul class="summery-contain">
+                                    {% for cat_prod in cat_prod %}
+                                    <li>
+                                        <img src="{{cat_prod.products.Image.url}}"
+                                            class="img-fluid blur-up lazyloaded checkout-image" alt="">
+                                        <h4>{{cat_prod.products.Product_Model}} <span><strong>*</strong> {{cat_prod.quantity}}</span></h4>
+                                        <h4 class="price">{{cat_prod.total_price}} ৳</h4>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="summery-total">
+
+                                    <li>
+                                        <h4>Subtotal</h4>
+                                        <h4 class="price">{{amount}} ৳</h4>
+                                    </li>
+
+                                    <li>
+                                        <h4>Shipping</h4>
+                                        <h4 class="price">{{shipping_amount}} ৳</h4>
+                                    </li>
+
+                                    <li>
+                                        <h4>Tax</h4>
+                                        <h4 class="price">0.00</h4>
+                                    </li>
+
+                                    <li class="list-total">
+                                        <h4>Total (BDT)</h4>
+                                        <h4 class="price">{{total_amount}} ৳</h4>
+                                    </li>
+
+
+                                </ul>
+                            </div>
+
+                            <div class="checkout-offer">
+                                <div class="offer-title">
+                                    <div class="offer-icon">
+                                        <img src="{% static 'assets/images/inner-page/offer.svg ' %}" class="img-fluid" alt="">
+                                    </div>
+                                    <div class="offer-name">
+                                        <h6>Available Offers</h6>
+                                    </div>
+                                </div>
+
+                                <ul class="offer-detail">
+                                    <li>
+                                        <p>Combo: BB Royal Almond/Badam Californian, Extra Bold 100 gm...</p>
+                                    </li>
+                                    <li>
+                                        <p>combo: Royal Cashew Californian, Extra Bold 100 gm + BB Royal Honey 500 gm</p>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <button type="submit" class="btn theme-bg-color text-white btn-md w-100 mt-4 fw-bold">Place Order</button>
+
+                        </div>
+                    </div>
+    <!------------------------------------------------Order Summery Show End----------------------------------------------->
+                </div>
+            </div>
+
+
+
+        </form>
+    </section>
+    <!-- Checkout section End -->
+
+{% endblock body %}

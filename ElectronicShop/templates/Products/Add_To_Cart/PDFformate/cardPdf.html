@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+{% load static  %}
+<html lang="en">
+
+<style>
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #04AA6D;
+  color: white;
+}
+div {
+    text-align: center;
+ }
+ div img{
+  width:60px;
+  height:60px;
+   border-radius:  20px;
+ }
+ div h3{
+  color:#faebd7;
+  font-weight:700;
+
+ }
+</style>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cart PDF Create</title>
+
+</head>
+<body>
+   <div>
+      '<img src="/static/assets/images/logo/Eshop.png"/>'
+       <h3>Electronic<span>Shop</span></h3>
+
+   </div>
+
+<table id="customers">
+    <thead>
+         <tr>
+             <th >Sl</th>
+             <th>Product Image </th>
+             <th >Category_Name</th>
+             <th >Brand_Name</th>
+             <th>quantity</th>
+             <th>Special_Price</th>
+         </tr>
+    </thead>
+    <tbody>
+       {% for cat_prod in cat_prod %}
+           <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>
+                          <img src="{{cat_prod.products.Image.path}}" class="img-fluid blur-up lazyload" alt="" width="40px" height="40px">
+                    </td>
+                     <td>{{cat_prod.products.Category.Category_Name}}</td>
+                     <td>{{cat_prod.products.Product_Brand.Brand_Name}}</td>
+                     <td>{{cat_prod.quantity}}</td>
+                     <td>{{cat_prod.products.Special_Price}}</td>
+           </tr>
+       {% endfor %}
+    </tbody>
+</table>
+</body>
+</html>

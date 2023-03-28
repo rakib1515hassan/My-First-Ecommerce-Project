@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Enter_OTP{% endblock title %}
+{% block body %}
+<section class="log-in-section background-image-2 section-b-space">
+        <div class="container-fluid-lg w-100">
+            <div class="row">
+                <div class="col-xxl-6 col-xl-5 col-lg-6 d-lg-block d-none ms-auto">
+                    <div class="image-contain">
+                        <img src="{% static 'assets/images/Auth-Image/Otp-Send.png' %}" class="img-fluid" alt="">
+                    </div>
+                </div>
+
+                <div class="col-xxl-4 col-xl-5 col-lg-6 col-sm-8 mx-auto">
+                    <div class="log-in-box">
+                        <div class="log-in-title">
+                            <h3 class="text-center">Enter OTP To Recovery Your Account</h3>
+                        </div>
+                        <div class="input-box">
+                            <form class="row g-4" action="" method="POST">
+                                {% csrf_token %}
+                                {% include 'alert.html' %}
+                               <div class="col-12">
+                                  <div class="form-floating theme-form-floating log-in-form">
+                                     <input type="number" class="form-control" id="otp" placeholder="Enter OTP Number" name="otp" onfocus="this.placeholder = ''" onblur="this.placeholder = 'otp'">
+                                     <label for="otp">OTP Number</label>
+                                  </div>
+                               </div>
+                               <div class="col-12">
+                                  <button class="btn btn-animation w-100 justify-content-center" value="submit" type="submit" w-100>Submit</button>
+                               </div>
+
+                            </form>
+                        </div>
+                        <div class="sign-up-box">
+                            <h4>To Create New Account</h4>
+                            <a href="{% url 'Registration'%}">Sign Up</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock body %}

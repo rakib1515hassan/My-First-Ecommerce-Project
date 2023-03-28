@@ -1,0 +1,173 @@
+{% load static %}
+<script type="text/javascript" src="{% static 'assets/jquery.min.js' %}"></script>
+<script type="text/javascript" src="https://unpkg.com/axios@1.2.1/dist/axios.min.js"></script>
+
+<!-------------------------------------------Filter With Price Start -------------------------------------------------->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingThree">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseThree"
+                                            aria-expanded="false" aria-controls="collapseThree">
+                                        <span>Filters With Price</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseThree" class="accordion-collapse collapse show"
+                                     aria-labelledby="panelsStayOpen-headingThree">
+                                    <div class="accordion-body">
+                                        <div class="range-slider">
+                                            <input type="text" class="js-range-slider" value="">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+<!-------------------------------------------Filter With Price End -------------------------------------------------->
+<!-------------------------------------------Filter With Brand Start -------------------------------------------------->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#collapseOne" aria-expanded="true"
+                                            aria-controls="collapseOne">
+                                        <span>Brand</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseOne" class="accordion-collapse collapse show"
+                                     aria-labelledby="panelsStayOpen-headingOne">
+                                    <div class="accordion-body">
+                                        <div class="form-floating theme-form-floating-2 mb-3">
+
+                                            <form action="{% url 'Search_Products_results'%}" method="GET">
+                                                <div class="">
+                                                    <div class="input-group">
+                                                        <input type="search" class="filter-checkbox" placeholder="I'm searching for..."
+                                                               aria-label="Recipient's username" aria-describedby="button-addon2" name="search">
+                                                        <button type="submit" style="height: 40px;">
+                                                            <i class="fa fa-search" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+
+                                        </div>
+
+                                        <ul class="category-list custom-padding custom-height">
+                                            {% for b in brand %}
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+<!--<a href="Products_Category_Show/?brand_id={{b.id}}"><button type="submit" ><input class="checkbox_animated" type="checkbox" id="fruit"></button></a>-->
+                                                    <input class="filter-checkbox" data-filter="brand" value="{{b.id}}" type="checkbox">
+                                                    <label class="form-check-label" >
+                                                        <span class="name">{{b.Brand_Name}}</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+<!-------------------------------------------Filter With Brand End -------------------------------------------------->
+
+<!-------------------------------------------Filter With Category Start -------------------------------------------------->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingTwo">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseTwo"
+                                            aria-expanded="false" aria-controls="collapseTwo">
+                                        <span>Categories</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseTwo" class="accordion-collapse collapse show"
+                                     aria-labelledby="panelsStayOpen-headingTwo">
+                                    <div class="accordion-body">
+
+                                        <ul class="category-list custom-padding">
+
+                                            {% for c in cat %}
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+                                                    <input class="filter-checkbox" data-filter="category" value="{{c.id}}" type="checkbox" >
+                                                    <label class="form-check-label">
+                                                        <span class="name">{{c.Category_Name}}</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                            {% endfor %}
+                                        </ul>
+
+                                    </div>
+                                </div>
+                            </div>
+<!-------------------------------------------Filter With Category End -------------------------------------------------->
+
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="panelsStayOpen-headingFour">
+                                    <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#collapseFour"
+                                            aria-expanded="false" aria-controls="collapseFour">
+                                        <span>Discount</span>
+                                    </button>
+                                </h2>
+                                <div id="collapseFour" class="accordion-collapse collapse show"
+                                     aria-labelledby="panelsStayOpen-headingFour">
+                                    <div class="accordion-body">
+                                        <ul class="category-list custom-padding">
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+                                                    <input class="checkbox_animated" type="checkbox"
+                                                           id="flexCheckDefault">
+                                                    <label class="form-check-label" for="flexCheckDefault">
+                                                        <span class="name">upto 5%</span>
+                                                        <span class="number">(06)</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+                                                    <input class="checkbox_animated" type="checkbox"
+                                                           id="flexCheckDefault1">
+                                                    <label class="form-check-label" for="flexCheckDefault1">
+                                                        <span class="name">5% - 10%</span>
+                                                        <span class="number">(08)</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+                                                    <input class="checkbox_animated" type="checkbox"
+                                                           id="flexCheckDefault2">
+                                                    <label class="form-check-label" for="flexCheckDefault2">
+                                                        <span class="name">10% - 15%</span>
+                                                        <span class="number">(10)</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+                                                    <input class="checkbox_animated" type="checkbox"
+                                                           id="flexCheckDefault3">
+                                                    <label class="form-check-label" for="flexCheckDefault3">
+                                                        <span class="name">15% - 25%</span>
+                                                        <span class="number">(14)</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+
+                                            <li>
+                                                <div class="form-check ps-0 m-0 category-list-box">
+                                                    <input class="checkbox_animated" type="checkbox"
+                                                           id="flexCheckDefault4">
+                                                    <label class="form-check-label" for="flexCheckDefault4">
+                                                        <span class="name">More than 25%</span>
+                                                        <span class="number">(13)</span>
+                                                    </label>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>

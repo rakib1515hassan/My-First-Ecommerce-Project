@@ -1,0 +1,103 @@
+{% load static %}
+{% for pro in page_obj %}
+<div>
+    <div class="product-box-3 h-100 wow fadeInUp">
+        <div class="product-header">
+            <div class="product-image">
+                <a href="{% url 'Products_Details' pro.id %}">
+                    <img src="{{pro.Image.url}}"
+                         class="img-fluid blur-up lazyload" alt="">
+                </a>
+
+                <ul class="product-option">
+                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="View">
+                        <a href="javascript:void(0)" data-bs-toggle="modal"
+                           data-bs-target="#view">
+                            <i data-feather="eye"></i>
+                        </a>
+                    </li>
+
+                    <li data-bs-toggle="tooltip" data-bs-placement="top" title="Compare">
+                        <a href="compare.html">
+                            <i data-feather="refresh-cw"></i>
+                        </a>
+                    </li>
+
+                    {% if user.is_authenticated %}
+                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                            <button class="btn btn-outline-danger btn-sm add-wishlist" data-product="{{pro.id}}" onclick="OpenPopUp()">
+                                <i class="fa fa-heart"></i>
+                            </button>
+                        </li>
+                    {% else %}
+                        <li data-bs-toggle="tooltip" data-bs-placement="top" title="Wishlist">
+                            <a class="btn btn-sm btn-light disabled">
+                                <i class="fa fa-heart"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        <div class="product-footer">
+            <div class="product-detail">
+                <span class="span-name">{{pro.Category}}</span>
+                <a href="{% url 'Products_Details' pro.id %}">
+                    <h5 class="name">{{pro.Product_Name}}</h5>
+                </a>
+                <p class="text-content mt-1 mb-2 product-content">{{pro.Product_Brand}}</p>
+                <div class="product-rating mt-2">
+                    <ul class="rating">
+                        <li>
+                            <i data-feather="star" class="fill"></i>
+                        </li>
+                        <li>
+                            <i data-feather="star" class="fill"></i>
+                        </li>
+                        <li>
+                            <i data-feather="star" class="fill"></i>
+                        </li>
+                        <li>
+                            <i data-feather="star" class="fill"></i>
+                        </li>
+                        <li>
+                            <i data-feather="star"></i>
+                        </li>
+                    </ul>
+                    <span>(4.0)</span>
+                </div>
+                <h5 class="price"><span class="theme-color">{{pro.Special_Price}} ৳</span>
+                    <del>
+                        {{pro.Regular_Price}} ৳
+                    </del>
+                </h5>
+                <div class="add-to-cart-box bg-white">
+                    {% if user.is_authenticated %}
+                        <a href="{% url 'Add_To_Cart' pro.id %}">
+                            <button class="btn btn-outline-warning btn-add-cart addcart-button">Add To Cart</button>
+                        </a>
+                    {% else %}
+                        <a href="{% url 'Login' %}">
+                            <button class="btn btn-outline-warning btn-add-cart addcart-button">Add To Cart</button>
+                        </a>
+                    {% endif %}
+                    <div class="cart_qty qty-box">
+                        <div class="input-group bg-white">
+                            <button type="button" class="qty-left-minus bg-gray"
+                                    data-type="minus" data-field="">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </button>
+                            <input class="form-control input-number qty-input" type="text"
+                                   name="quantity" value="0">
+                            <button type="button" class="qty-right-plus bg-gray"
+                                    data-type="plus" data-field="">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}

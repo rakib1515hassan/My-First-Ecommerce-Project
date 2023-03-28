@@ -1,0 +1,8 @@
+1. To Create requirements:
+
+    	pip3 freeze > requirements.txt 
+
+
+2. To Install requirements:
+
+	pip install -U -r requirements.txt
